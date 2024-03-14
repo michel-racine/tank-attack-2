@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function () {
           break;
         case 'r':
           flankAngle = 0.0;
-          flankRadius = 240;
+          flankRadius = 600;
           break;
         case 'f':
           Missiles.push(new missile(me.x, me.y, me.theta, 0)); // 0 denotes player
