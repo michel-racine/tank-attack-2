@@ -12,4 +12,6 @@ Left and Right flank leaders will try to lead sub teams to location of orange ci
 Pressing 'r' commands team to move forward by moving orange circles forward.
 Pressing 'c' commands team to regroup by retracting orange circles.
 You can fire unlimited missiles.
-Objective is 100 enemy kills.
+GAME IS OVER WHEN player has sufficient enemy kills, or enemy tanks reach the green zone.
+
+
