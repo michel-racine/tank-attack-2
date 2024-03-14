@@ -6,9 +6,10 @@ UP/DOWN ARROW:  increase or decrease speed
 'r' KEY:  command team to move forward
 'c' KEY:  command team to regroup
 
-Note:
+Notes:
 The player has a left and right team, each with a linear following heirarchy.
 Left and Right flank leaders will try to lead sub teams to location of orange circles.
 Pressing 'r' commands team to move forward by moving orange circles forward.
 Pressing 'c' commands team to regroup by retracting orange circles.
-
+You can fire unlimited missiles.
+Objective is 100 enemy kills.
