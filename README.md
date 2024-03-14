@@ -11,7 +11,7 @@ The player has a left and right team, each with a linear following heirarchy.
 Left and Right flank leaders will try to lead sub teams to location of orange circles.
 Pressing 'r' commands team to move forward by moving orange circles forward.
 Pressing 'c' commands team to regroup by retracting orange circles.
-You can fire unlimited missiles.
+Destroy enemy tanks with missiles or by sending friendly tanks to intercept them
 GAME IS OVER WHEN player has sufficient enemy kills, or enemy tanks reach the green zone.
 
 
