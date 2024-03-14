@@ -1,4 +1,4 @@
-This is a tank warfare game. It runs in a HTML canvas element.
+Tank warfare game running in HTML canvas.
 
 LEFT/RIGHT ARROW:  rotate left or right
 UP/DOWN ARROW:  increase or decrease speed
