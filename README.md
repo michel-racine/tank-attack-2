@@ -1,5 +1,7 @@
 Tank warfare game running in HTML canvas.
 
+https://youtu.be/kqtXTclBu_U
+
 LEFT/RIGHT ARROW:  rotate left or right
 UP/DOWN ARROW:  increase or decrease speed
 'f' KEY:  fire missile
