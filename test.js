@@ -1,2 +1,4 @@
 // Dummy test script
-alert('[+] remote retrieve ok.');
+function helloWorld() {
+  alert('[+] remote retrieve ok.');
+}
