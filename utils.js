@@ -85,7 +85,7 @@ function drawTarget(x, y, r, colour, ctx) {
 function drawLine(x0, y0, x1, y1, colour, ctx) {
   return new Promise((resolve) => {
     ctx.beginPath();
-    ctx.lineWidth = 3;
+    ctx.lineWidth = 5;
     ctx.strokeStyle = colour;
     ctx.moveTo(Math.floor(x0), Math.floor(y0));
     ctx.lineTo(Math.floor(x1), Math.floor(y1));
