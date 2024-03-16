@@ -177,7 +177,7 @@ document.addEventListener('DOMContentLoaded', function () {
           this.y,
           this.oldx,
           this.oldy,
-          'rgba(255, 0, 0, 0.5)',
+          'rgba(255, 0, 0, 0.4)',
           ctx
         );
       }
