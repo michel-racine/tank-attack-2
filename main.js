@@ -390,13 +390,13 @@ document.addEventListener('DOMContentLoaded', function () {
     ctx.fillText('戦車戦', 50, displayHeight - 50);
 
     if (running == false) {
-      // ctx.font = '100px Courier';
-      // ctx.fillText('敗者', 50, displayHeight / 2); // Haisha Loser
-//////      drawTarget(xM, yM, 400, 'rgba(255, 0, 0, 0.4)', ctx);
-//////      clearInterval(myGameArea.interval);
+      ctx.font = '100px Courier';
+      ctx.fillText('敗者', 50, displayHeight / 2); // Haisha Loser
+      drawTarget(xM, yM, 400, 'rgba(255, 0, 0, 0.4)', ctx);
+      clearInterval(myGameArea.interval);
     } else if (score >= 64) {
-      // ctx.font = '100px Courier';
-      // ctx.fillText('勝者', 50, displayHeight / 2); // Shosha Winner
+      ctx.font = '100px Courier';
+      ctx.fillText('勝者', 50, displayHeight / 2); // Shosha Winner
       drawTarget(xM, yM, 400, 'rgba(0, 255, 0, 0.4)', ctx);
       clearInterval(myGameArea.interval);
     }
