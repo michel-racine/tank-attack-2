@@ -1,6 +1,3 @@
-// TODO: add game state. if enemy reaches target zone, game is over
-// TODO: progressively increase difficulty
-// TODO: add reward, sound effects, music
 document.addEventListener('DOMContentLoaded', function () {
   const canvas = document.getElementById('myCanvas');
   const ctx = canvas.getContext('2d');
@@ -8,9 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var running = true;
   var displayWidth = window.innerWidth - 60;
   var displayHeight = window.innerHeight - 60;
-  //var backgroundColour = 'rgb(67, 67, 52, 0.2)'; // REM: last parameter is translucency
   var backgroundColour = 'rgb(128, 128, 100, 1.0)'; // REM: last parameter is translucency
-  // var backgroundColour = 'rgb(40,40,40  )'; // REM: last parameter is translucency
   var friendSpacing = 40; // 32;
   var maxSpeed = 3;
   var numFriends = 6;
@@ -67,11 +62,9 @@ document.addEventListener('DOMContentLoaded', function () {
       }
       switch (event.key) {
         case 'ArrowLeft':
-          // thetaDerivative -= thetaDerivative > -0.1 ? 0.1 : 0;
           thetaDerivative = -0.15;
           break;
         case 'ArrowRight':
-          // thetaDerivative += thetaDerivative < 0.1 ? 0.1 : 0;
           thetaDerivative = 0.15;
           break;
         case 'ArrowUp':
@@ -81,7 +74,6 @@ document.addEventListener('DOMContentLoaded', function () {
           me.radius -= 1.0;
           break;
         case 'c':
-//          flankAngle = 1.5;
           flankRadius -= 100;
           p2 = getFlank(me.x, me.y, me.theta, flankAngle, flankRadius);
           p3 = getFlank(me.x, me.y, me.theta, -flankAngle, flankRadius);
@@ -115,7 +107,6 @@ document.addEventListener('DOMContentLoaded', function () {
       this.canvas.width = displayWidth;
       this.canvas.height = window.innerHeight;
       this.context = this.canvas.getContext('2d');
-      //      document.body.insertBefore(this.canvas, document.body.childNodes[0]);
       this.frameNo = 0;
       this.interval = setInterval(updateGameArea, 80);
     },
@@ -129,7 +120,6 @@ document.addEventListener('DOMContentLoaded', function () {
     this.radius = 2;
 
     this.update = function () {
-      // this line causes player steering to drift to center
       this.theta += thetaDerivative;
       if (thetaDerivative <= -0.03) thetaDerivative += 0.03;
       else if (thetaDerivative >= 0.03) thetaDerivative -= 0.03;
@@ -271,8 +261,6 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function updateGameArea() {
-    // withholding just to increase speed, trying to decide if is ok aesthetically...
-    //    myGameArea.clear();
     ctx.fillStyle = backgroundColour;
     ctx.fillRect(0, 0, displayWidth, window.innerHeight);
     me.update();
@@ -372,10 +360,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     for (i = 0; i < Missiles.length; i++)
       if (Missiles[i].age < 0) Missiles.splice(i, 1);
-
-//    if (flankAngle < 0.3) flankAngle += 0.01;
-//    else if (flankAngle < 1.5) flankAngle += 0.1;
-//    if (flankRadius > 30) flankRadius -= 5;
 
     p2x = p2[0];
     p2y = p2[1];
