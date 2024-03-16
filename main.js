@@ -11,12 +11,12 @@ document.addEventListener('DOMContentLoaded', function () {
   //var backgroundColour = 'rgb(67, 67, 52, 0.2)'; // REM: last parameter is translucency
   var backgroundColour = 'rgb(128, 128, 100, 1.0)'; // REM: last parameter is translucency
   // var backgroundColour = 'rgb(40,40,40  )'; // REM: last parameter is translucency
-  var friendSpacing = 20; // 32;
+  var friendSpacing = 40; // 32;
   var maxSpeed = 3;
   var numFriends = 6;
   var numEnemies = 4;
   var missileRangeThreshold = 200;
-  me = new player(displayWidth / 2, displayHeight - 100);
+  me = new player(100, displayHeight / 2);
   var flankAngle = 1.5;
   var flankRadius = 200;
   var Friends = [];
@@ -25,26 +25,29 @@ document.addEventListener('DOMContentLoaded', function () {
   var Missiles = [];
 
   // mouse coordinates
-  var xM = displayWidth / 2;
-  var yM = displayHeight * 0.8;
+  var xM = 100; // displayWidth / 2;
+  var yM = displayHeight / 2;
 
   // Create buddy instances (friends) and push them into the Friends array
   for (var i = 0; i < numFriends; i++) {
-    var x = Math.random() * displayWidth; // initial location
-    var y = displayHeight; // REM: Math.random()
+    var x = me.x; // Math.random() * displayWidth; // initial location
+    var y = me.y; // displayHeight; // REM: Math.random()
     var newBuddy = new buddy(x, y, 1); // friends have c value of 1
     Friends.push(newBuddy);
   }
 
   // Create enemy instances
   for (var i = 0; i < numEnemies; i++) {
-    var newEnemy = new buddy(Math.random() * displayWidth, 0, 2); // enemies have c value of 2
+    var newEnemy = new buddy(displayWidth - 10, Math.random() * displayHeight, 2); // enemies have c value of 2
     Enemies.push(newEnemy);
   }
 
   var thetaDerivative = 0.0;
   let p2x = 0.0; // right flank position
   let p2y = 0.0;
+  var p2 = getFlank(me.x, me.y, me.theta, flankAngle, flankRadius);
+  var p3 = getFlank(me.x, me.y, me.theta, -flankAngle, flankRadius);
+
   let p3x = 0.0; // left flank position
   let p3y = 0.0;
 
@@ -65,25 +68,29 @@ document.addEventListener('DOMContentLoaded', function () {
       switch (event.key) {
         case 'ArrowLeft':
           // thetaDerivative -= thetaDerivative > -0.1 ? 0.1 : 0;
-          thetaDerivative = -0.1;
+          thetaDerivative = -0.15;
           break;
         case 'ArrowRight':
           // thetaDerivative += thetaDerivative < 0.1 ? 0.1 : 0;
-          thetaDerivative = 0.1;
+          thetaDerivative = 0.15;
           break;
         case 'ArrowUp':
-          me.radius += 0.5;
+          me.radius += 1.0;
           break;
         case 'ArrowDown':
-          me.radius -= 0.5;
+          me.radius -= 1.0;
           break;
         case 'c':
-          flankAngle = 1.5;
-          flankRadius = 60;
+//          flankAngle = 1.5;
+          flankRadius -= 100;
+          p2 = getFlank(me.x, me.y, me.theta, flankAngle, flankRadius);
+          p3 = getFlank(me.x, me.y, me.theta, -flankAngle, flankRadius);
           break;
         case 'r':
-          flankAngle = 0.0;
-          flankRadius = 500;
+          p2 = getFlank(me.x, me.y, me.theta, flankAngle, flankRadius);
+          p3 = getFlank(me.x, me.y, me.theta, -flankAngle, flankRadius);
+	  flankAngle = 0.15;
+          flankRadius += 100;
           break;
         case 'f':
           Missiles.push(new missile(me.x, me.y, me.theta, 0)); // 0 denotes player
@@ -92,14 +99,6 @@ document.addEventListener('DOMContentLoaded', function () {
           return;
       }
 
-      // limit radius (speed) between -1 and maxSpeed
-      me.radius =
-        me.radius > maxSpeed + 2
-          ? maxSpeed + 2
-          : me.radius < -2
-          ? -2
-          : me.radius;
-      me.theta = me.theta % (2 * Math.PI);
       event.preventDefault();
     },
     true
@@ -126,14 +125,14 @@ document.addEventListener('DOMContentLoaded', function () {
   function player(x, y) {
     this.x = x;
     this.y = y;
-    this.theta = Math.PI * 1.5;
+    this.theta = 0.0;
     this.radius = 2;
 
     this.update = function () {
       // this line causes player steering to drift to center
       this.theta += thetaDerivative;
-      if (thetaDerivative < 0) thetaDerivative += 0.03;
-      else if (thetaDerivative >= 0) thetaDerivative -= 0.03;
+      if (thetaDerivative <= -0.03) thetaDerivative += 0.03;
+      else if (thetaDerivative >= 0.03) thetaDerivative -= 0.03;
 
       this.theta =
         this.x > displayWidth || this.x < 0
@@ -188,7 +187,7 @@ document.addEventListener('DOMContentLoaded', function () {
           this.y,
           this.oldx,
           this.oldy,
-          'rgba(255, 0, 0, 0.2)',
+          'rgba(255, 0, 0, 0.5)',
           ctx
         );
       }
@@ -336,8 +335,8 @@ document.addEventListener('DOMContentLoaded', function () {
           Enemies.splice(i, 1);
           Enemies.push(
             new buddy(
-              (Math.random() * displayWidth) / 2 + displayWidth / 4,
-              0,
+              displayWidth - 10,
+              Math.floor(Math.random() * displayHeight),
               2
             )
           );
@@ -363,8 +362,8 @@ document.addEventListener('DOMContentLoaded', function () {
           score++;
           Enemies.push(
             new buddy(
-              (Math.random() * displayWidth) / 2 + displayWidth / 4,
-              0,
+              displayWidth - 10,
+              Math.floor(Math.random() * displayHeight),
               2
             )
           );
@@ -374,11 +373,9 @@ document.addEventListener('DOMContentLoaded', function () {
     for (i = 0; i < Missiles.length; i++)
       if (Missiles[i].age < 0) Missiles.splice(i, 1);
 
-    if (flankAngle < 0.3) flankAngle += 0.01;
-    else if (flankAngle < 1.5) flankAngle += 0.1;
-    if (flankRadius > 30) flankRadius -= 1;
-    var p2 = getFlank(me.x, me.y, me.theta, flankAngle, flankRadius);
-    var p3 = getFlank(me.x, me.y, me.theta, -flankAngle, flankRadius);
+//    if (flankAngle < 0.3) flankAngle += 0.01;
+//    else if (flankAngle < 1.5) flankAngle += 0.1;
+//    if (flankRadius > 30) flankRadius -= 5;
 
     p2x = p2[0];
     p2y = p2[1];
@@ -411,8 +408,8 @@ document.addEventListener('DOMContentLoaded', function () {
     if (running == false) {
       // ctx.font = '100px Courier';
       // ctx.fillText('敗者', 50, displayHeight / 2); // Haisha Loser
-      drawTarget(xM, yM, 400, 'rgba(255, 0, 0, 0.4)', ctx);
-      clearInterval(myGameArea.interval);
+//////      drawTarget(xM, yM, 400, 'rgba(255, 0, 0, 0.4)', ctx);
+//////      clearInterval(myGameArea.interval);
     } else if (score >= 64) {
       // ctx.font = '100px Courier';
       // ctx.fillText('勝者', 50, displayHeight / 2); // Shosha Winner
