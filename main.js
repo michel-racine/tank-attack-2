@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function () {
           me.radius -= 1.0;
           break;
         case 'c':
-          flankRadius -= 100;
+          flankRadius -= flankRadius > 0 ? 100 : 0;
           p2 = getFlank(me.x, me.y, me.theta, flankAngle, flankRadius);
           p3 = getFlank(me.x, me.y, me.theta, -flankAngle, flankRadius);
           break;
@@ -82,11 +82,10 @@ document.addEventListener('DOMContentLoaded', function () {
           p2 = getFlank(me.x, me.y, me.theta, flankAngle, flankRadius);
           p3 = getFlank(me.x, me.y, me.theta, -flankAngle, flankRadius);
 	  flankAngle = 0.15;
-          flankRadius += 100;
+          flankRadius += flankRadius <= 1000 ? 100 : 0;
           break;
         case 'f':
           Missiles.push(new missile(me.x, me.y, me.theta, 0)); // 0 denotes player
-          console.log('missile fired, array length: ' + Missiles.length);
         default:
           return;
       }
