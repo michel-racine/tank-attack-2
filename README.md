@@ -2,6 +2,11 @@ Tank warfare game running in HTML canvas.
 
 https://youtu.be/kqtXTclBu_U
 
+git clone https://github.com/michel-racine/tank-attack-2
+
+Open index.html file in chrome or other browser.
+
+
 LEFT/RIGHT ARROW:  rotate left or right
 UP/DOWN ARROW:  increase or decrease speed
 'f' KEY:  fire missile
